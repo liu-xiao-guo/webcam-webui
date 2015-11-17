@@ -1,0 +1,31 @@
+name: webcam-webui
+version: 1.0
+vendor: XiaoGuo Liu <xiaoguo.liu@canonical.com>
+summary: Webcam web UI
+description: Exposes your webcam over a web UI
+icon: icon.png
+
+services:
+  webcam-webui:
+    start: bin/webcam-webui
+
+parts:
+  cam:
+    plugin: go
+    source: git://github.com/mikix/golang-static-http
+    stage-packages:
+      - fswebcam
+    filesets:
+      fswebcam:
+        - usr/bin/fswebcam
+        - lib
+        - usr/lib
+      go-server:
+        - bin/golang-*
+    snap:
+        - $fswebcam
+        - $go-server
+  glue:
+    plugin: copy
+    files:
+      webcam-webui: bin/webcam-webui

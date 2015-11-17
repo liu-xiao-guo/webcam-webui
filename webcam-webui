@@ -1,0 +1,11 @@
+#!/bin/sh
+set -e
+
+cd "$SNAP_APP_DATA_PATH"
+
+golang-static-http &
+
+while :; do
+    fswebcam shot.jpeg
+    sleep 10
+done
